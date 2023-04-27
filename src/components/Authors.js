@@ -1,8 +1,20 @@
+// apollo client
+import { useQuery } from "@apollo/client";
+// queries
+import { GET_AUTHORS } from "../queries";
+
 const Authors = (props) => {
-  if (!props.show) {
-    return null
+  const result = useQuery(GET_AUTHORS);
+
+  if (result.loading) {
+    return <div>Loading...</div>;
   }
-  const authors = []
+
+  if (!props.show) {
+    return null;
+  }
+
+  const authors = result.data.allAuthors;
 
   return (
     <div>
@@ -24,7 +36,7 @@ const Authors = (props) => {
         </tbody>
       </table>
     </div>
-  )
-}
+  );
+};
 
-export default Authors
+export default Authors;
