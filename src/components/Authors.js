@@ -2,6 +2,7 @@
 import { useQuery } from "@apollo/client";
 // queries
 import { GET_AUTHORS } from "../queries";
+import BirthForm from "./BirthForm";
 
 const Authors = (props) => {
   const result = useQuery(GET_AUTHORS);
@@ -35,6 +36,7 @@ const Authors = (props) => {
           ))}
         </tbody>
       </table>
+      <BirthForm />
     </div>
   );
 };
