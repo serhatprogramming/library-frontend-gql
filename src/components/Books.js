@@ -23,9 +23,11 @@ const Books = (props) => {
   books.map((a) => a.genres.map((genre) => genreList.push(genre)));
 
   return (
-    <div>
+    <>
       <h2>books</h2>
-
+      <p>
+        in genre <strong>{filterKeyword}</strong>{" "}
+      </p>
       <table>
         <tbody>
           <tr>
@@ -49,7 +51,7 @@ const Books = (props) => {
           <button onClick={() => setfilterKeyword(genre)}>{genre}</button>
         ))}
       </>
-    </div>
+    </>
   );
 };
 
