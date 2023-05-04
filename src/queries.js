@@ -28,18 +28,22 @@ export const GET_BOOKS = gql`
 export const CREATE_BOOK = gql`
   mutation createBook(
     $title: String!
-    $author: String!
+    $name: String!
     $published: Int!
     $genres: [String!]!
   ) {
     addBook(
       title: $title
-      author: $author
+      name: $name
       published: $published
       genres: $genres
     ) {
       title
-      author
+      author {
+        bookCount
+        born
+        name
+      }
       published
       genres
     }

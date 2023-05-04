@@ -6,7 +6,7 @@ import { CREATE_BOOK, GET_AUTHORS, GET_BOOKS } from "../queries";
 
 const NewBook = (props) => {
   const [title, setTitle] = useState("");
-  const [author, setAuthor] = useState("");
+  const [name, setName] = useState("");
   const [published, setPublished] = useState("");
   const [genre, setGenre] = useState("");
   const [genres, setGenres] = useState([]);
@@ -24,11 +24,11 @@ const NewBook = (props) => {
 
     console.log("add book...");
 
-    createBook({ variables: { title, author, published, genres } });
+    createBook({ variables: { title, name, published, genres } });
 
     setTitle("");
     setPublished("");
-    setAuthor("");
+    setName("");
     setGenres([]);
     setGenre("");
   };
@@ -51,8 +51,8 @@ const NewBook = (props) => {
         <div>
           author
           <input
-            value={author}
-            onChange={({ target }) => setAuthor(target.value)}
+            value={name}
+            onChange={({ target }) => setName(target.value)}
           />
         </div>
         <div>

@@ -3,11 +3,14 @@ import Authors from "./components/Authors";
 import Books from "./components/Books";
 import NewBook from "./components/NewBook";
 import Login from "./components/Login";
+import { useApolloClient } from "@apollo/client";
 
 const App = () => {
   const [page, setPage] = useState("authors");
   const [token, setToken] = useState(null);
   const [notification, setNotification] = useState(null);
+
+  const client = useApolloClient();
 
   const setError = (message) => {
     setNotification(message);
@@ -19,6 +22,7 @@ const App = () => {
   const logout = () => {
     setToken(null);
     localStorage.clear();
+    client.clearStore();
   };
 
   return (
