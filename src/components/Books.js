@@ -16,7 +16,6 @@ const Books = (props) => {
   if (result.loading) {
     return <div>Loading...</div>;
   }
-  console.log(result.data.allBooks);
 
   const books = result.data.allBooks;
   let genreList = [];
