@@ -7,7 +7,16 @@ import { useState, useEffect } from "react";
 const Books = (props) => {
   const [filterKeyword, setfilterKeyword] = useState("");
 
-  const result = useQuery(GET_BOOKS, { variables: { genre: filterKeyword } });
+  const result = useQuery(GET_BOOKS, {
+    variables: { genre: filterKeyword },
+    update: (cache, response) => {
+      cache.updateQuery({ query: GET_BOOKS }, ({ allBooks }) => {
+        return {
+          allBooks,
+        };
+      });
+    },
+  });
   const resultBooks = useQuery(GET_BOOKS);
 
   if (!props.show) {
