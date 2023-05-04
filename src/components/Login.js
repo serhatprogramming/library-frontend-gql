@@ -21,6 +21,7 @@ const Login = (props) => {
       localStorage.setItem("library-user-token", token);
       props.setPage("authors");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [result.data]);
 
   if (!props.show) {
