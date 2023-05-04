@@ -6,14 +6,22 @@ import Login from "./components/Login";
 
 const App = () => {
   const [page, setPage] = useState("authors");
+  const [token, setToken] = useState(null);
 
   return (
     <div>
       <div>
         <button onClick={() => setPage("authors")}>authors</button>
         <button onClick={() => setPage("books")}>books</button>
-        <button onClick={() => setPage("add")}>add book</button>
-        <button onClick={() => setPage("login")}>login</button>
+        {token ? (
+          <>
+            <button onClick={() => setPage("add")}>add book</button>
+            <button onClick={() => console.log("logout...")}>logout</button>
+          </>
+        ) : (
+          <button onClick={() => setPage("login")}>login</button>
+        )}
+        {!token && <button onClick={() => setPage("login")}>login</button>}
       </div>
 
       <Authors show={page === "authors"} />
