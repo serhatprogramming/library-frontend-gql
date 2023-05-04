@@ -7,6 +7,19 @@ import Login from "./components/Login";
 const App = () => {
   const [page, setPage] = useState("authors");
   const [token, setToken] = useState(null);
+  const [notification, setNotification] = useState(null);
+
+  const setError = (message) => {
+    setNotification(message);
+    setTimeout(() => {
+      setNotification(null);
+    }, 3000);
+  };
+
+  const logout = () => {
+    setToken(null);
+    localStorage.clear();
+  };
 
   return (
     <div>
@@ -16,21 +29,23 @@ const App = () => {
         {token ? (
           <>
             <button onClick={() => setPage("add")}>add book</button>
-            <button onClick={() => console.log("logout...")}>logout</button>
+            <button onClick={logout}>logout</button>
           </>
         ) : (
           <button onClick={() => setPage("login")}>login</button>
         )}
-        {!token && <button onClick={() => setPage("login")}>login</button>}
       </div>
 
+      {notification && <p style={{ color: "red" }}>{notification}</p>}
       <Authors show={page === "authors"} />
-
       <Books show={page === "books"} />
-
       <NewBook show={page === "add"} />
-
-      <Login show={page === "login"} />
+      <Login
+        show={page === "login"}
+        setToken={setToken}
+        setError={setError}
+        setPage={setPage}
+      />
     </div>
   );
 };
