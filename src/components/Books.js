@@ -55,8 +55,11 @@ const Books = (props) => {
         </tbody>
       </table>
       <>
+        <button onClick={() => setfilterKeyword(null)}>all</button>
         {[...new Set(genreList)].map((genre) => (
-          <button onClick={() => setfilterKeyword(genre)}>{genre}</button>
+          <button onClick={() => setfilterKeyword(genre)} key={genre}>
+            {genre}
+          </button>
         ))}
       </>
     </>
