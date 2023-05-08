@@ -15,6 +15,8 @@ const App = () => {
   useSubscription(BOOK_ADDED, {
     onData: ({ data }) => {
       console.log(data);
+      setError("Book is added...");
+      // window.alert("Book is added...");
     },
   });
 
