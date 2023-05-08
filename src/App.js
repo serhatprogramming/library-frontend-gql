@@ -5,22 +5,47 @@ import NewBook from "./components/NewBook";
 import Login from "./components/Login";
 import { useApolloClient, useSubscription } from "@apollo/client";
 import Recommendations from "./components/Recommendations";
-import { BOOK_ADDED } from "./queries";
+import { BOOK_ADDED, GET_BOOKS } from "./queries";
+
+// function that takes care of manipulating cache
+export const updateCache = (cache, query, addedBook) => {
+  // helper that is used to eliminate saving same person twice
+  const uniqByName = (a) => {
+    let seen = new Set();
+    return a.filter((item) => {
+      console.log("item: ", item);
+      if (item !== undefined) {
+        let k = item.title;
+        return seen.has(k) ? false : seen.add(k);
+      }
+    });
+  };
+
+  cache.updateQuery(query, ({ allBooks }) => {
+    return {
+      allBooks: uniqByName(allBooks.concat(addedBook)),
+    };
+  });
+};
 
 const App = () => {
   const [page, setPage] = useState("authors");
   const [token, setToken] = useState(null);
   const [notification, setNotification] = useState(null);
 
+  const client = useApolloClient();
+
   useSubscription(BOOK_ADDED, {
     onData: ({ data }) => {
       console.log(data);
       setError("Book is added...");
       // window.alert("Book is added...");
+      const addedBook = data.data.addedBook;
+      setTimeout(() => {
+        updateCache(client.cache, { query: GET_BOOKS }, addedBook);
+      }, 3000);
     },
   });
-
-  const client = useApolloClient();
 
   const setError = (message) => {
     setNotification(message);
